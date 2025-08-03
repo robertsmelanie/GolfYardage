@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wind-Adjusted Yardage</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            margin-top: 0.5rem;
+        }
+
+        .results {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .results p {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Wind-Adjusted Yardage</h1>
+    <div class="form-group">
+        <label for="yardage">Target Yardage (yards)</label>
+        <input type="number" id="yardage" placeholder="e.g. 150" min="50" max="300" />
+    </div>
+    <div class="form-group">
+        <label for="windSpeed">Wind Speed (mph)</label>
+        <input type="number" id="windSpeed" placeholder="e.g. 10" min="0" max="50" />
+    </div>
+    <div class="form-group">
+        <label for="windDir">Wind Direction</label>
+        <select id="windDir">
+            <option value="head">Headwind</option>
+            <option value="tail">Tailwind</option>
+            <option value="cross">Crosswind</option>
+        </select>
+    </div>
+    <button id="calcBtn">Calculate Adjustment</button>
+
+    <div id="results" class="results" style="display:none;">
+        <p><strong>Adjusted Yardage:</strong> <span id="adjYds"></span> yards</p>
+        <p><em>(How far you should actually hit)</em></p>
+    </div>
+
+    <script>
+        document.getElementById('calcBtn').addEventListener('click', () => {
+            const yard = parseFloat(document.getElementById('yardage').value) || 0;
+            const wind = parseFloat(document.getElementById('windSpeed').value) || 0;
+            const dir = document.getElementById('windDir').value;
+
+            if (yard <= 0) {
+                alert('Please enter a valid target yardage.');
+                return;
+            }
+
+            // Wind adjustment factors (yards per 1 mph)
+            const factors = {
+                head: 0.75,    // add 0.75 yards per mph into the wind
+                tail: -0.5,    // subtract 0.5 yards per mph with the wind
+                cross: 0.2     // minor effect: add 0.2 yards per mph
+            };
+            const factor = factors[dir] || 0;
+
+            // Calculate total adjustment
+            const adjustment = wind * factor;
+            const adjustedYardage = yard + adjustment;
+
+            document.getElementById('adjYds').textContent = adjustedYardage.toFixed(0);
+            document.getElementById('results').style.display = 'block';
+        });
+    </script>
+</body>
+
+</html>
