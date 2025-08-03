@@ -4,7 +4,21 @@ const baseCarry = {
     '9i': 140,
     '8i': 150,
     '7i': 160,
-    '6i': 170
+    '6i': 170,
+    '5i': 180,
+    '4i': 190,
+    '3i': 200,
+    '2i': 210,
+    '1i': 220,
+    '3w': 230,
+    '5w': 240,
+    driver: 250,
+    putter: 30,
+    hybrid: 210,
+    chipper: 50,
+    sandwedge: 80,
+    lobwedge: 60,
+    gapwedge: 90
 };
 
 document.getElementById('calcBtn').addEventListener('click', () => {
