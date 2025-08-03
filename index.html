@@ -7,5 +7,31 @@
 </head>
 <body>
     <h1>Golf Yardage Calculator</h1>
+
+    <div class="form-group">
+        <label for="club">Club Type</label>
+        <select id="club">
+            <option value="pw">Pitching Wedge</option>
+            <option value="9i">9-Iron</option>
+            <option value="8i">8-Iron</option>
+            <option value="7i">7-Iron</option>
+            <option value="6i">6-Iron</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="swingSpeed">Swing Speed (mph)</label>
+        <input type="number" id="swingSpeed" placeholder="e.g. 90" min="40" max="130" />
+    </div>
+    <div class="form-group">
+        <label for="elevation">Elevation Change (yards)</label>
+        <input type="number" id="elevation" placeholder="+10 uphill, -5 downhill" />
+    </div>
+    <button id="calcBtn">Calculate</button>
+    
+    <div id="results" class="results" style="display: none;">
+        <p><strong>Estimated Carry:</strong> <span id="carryYds"></span> yards</p>
+        <p><strong>Estimated Roll:</strong> <span id="rollYds"></span> yards</p>
+    </div>
+
 </body>
 </html>
